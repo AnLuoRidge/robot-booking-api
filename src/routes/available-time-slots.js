@@ -1,0 +1,29 @@
+import { Router } from 'express';
+// import { mockBookableDaysDB } from '../mock-data';
+
+const router = Router();
+
+console.log('Loading available time slots route');
+
+router.get('/', (req, res) => {
+    console.log('Executing available time slot route');
+    console.log(`Year: ${req.query.year} Month: ${req.query.month} Day: ${req.query.day}`);
+    
+    const mockTimeSlots = {
+        "success": true,
+        "timeSlots": [
+          {
+            "startTime": "2019-09-04T09:00:00.000Z",
+              "endTime": "2019-09-04T09:40:00.000Z"
+          },
+          {
+            "startTime": "2019-09-04T09:45:00.000Z",
+              "endTime": "2019-09-04T10:25:00.000Z"
+          },
+        ]
+      };
+    return res.send(mockTimeSlots);
+});
+
+
+export default router;

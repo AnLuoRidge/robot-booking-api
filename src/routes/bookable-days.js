@@ -3,10 +3,10 @@ import { mockBookableDaysDB } from '../mock-data';
 
 const router = Router();
 
-console.log('loading bookable days route');
+console.log('Loading bookable days route');
 
 router.get('/', (req, res) => {
-    console.log('executing bookable days route');
+    console.log('Executing bookable days route');
     // TODO: Validator: Month X 00 etc
     const bookableDays = getBookableDays(req.query.year, req.query.month);
     return res.send(bookableDays);
