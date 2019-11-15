@@ -1,9 +1,10 @@
+import logger from '../../config/winston';
 import { Router } from 'express';
 import { mockBookableDaysDB } from '../mock-data';
 
 const router = Router();
 
-console.log('Loading bookable days route');
+logger.debug('Loading bookable days route');
 
 router.get('/', (req, res) => {
     console.log('Executing bookable days route');

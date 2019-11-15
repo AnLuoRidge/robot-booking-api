@@ -1,7 +1,8 @@
+import logger from '../../config/winston';
 import bookableDays from './bookable-days';
 import availableTimeSlots from "./available-time-slots";
 
-console.log('Loading all routes');
+logger.debug('Loading all routes');
 
 export default {
     bookableDays,
