@@ -16,7 +16,7 @@ app.get('/', (_, res) => {
 })
 app.use('/days', routes.bookableDays);
 app.use('/timeslots', routes.availableTimeSlots);
-
+app.use('/book', routes.booking);
 
 app.listen(process.env.PORT, () =>
   logger.info(`App listening on port ${process.env.PORT}!`),

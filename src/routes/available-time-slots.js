@@ -7,8 +7,8 @@ const router = Router();
 logger.debug('Loading available time slots route');
 
 router.get('/', (req, res) => {
-    console.log('Executing available time slot route');
-    console.log(`Year: ${req.query.year} Month: ${req.query.month} Day: ${req.query.day}`);
+    logger.debug('Executing available time slot route');
+    logger.debug(`Year: ${req.query.year} Month: ${req.query.month} Day: ${req.query.day}`);
     
     const mockTimeSlots = {
         "success": true,

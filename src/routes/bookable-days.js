@@ -7,14 +7,14 @@ const router = Router();
 logger.debug('Loading bookable days route');
 
 router.get('/', (req, res) => {
-    console.log('Executing bookable days route');
+    logger.debug('Executing bookable days route');
     // TODO: Validator: Month X 00 etc
     const bookableDays = getBookableDays(req.query.year, req.query.month);
     return res.send(bookableDays);
 });
 
 const getBookableDays = (year, month) => {
-    console.log(`GET Year: ${year} Month: ${month}\n`);
+    logger.debug(`GET Year: ${year} Month: ${month}\n`);
 
     if (month <= 0 || month > 12) {
         // TODO: month in [1, 2, 3]
@@ -39,7 +39,7 @@ const getBookableDays = (year, month) => {
         }
     } else {
         if (process.env.NODE_ENV === 'debug') {
-            console.log(`Invalid year: ${year}`);
+            logger.debug(`Invalid year: ${year}`);
         }
         return {
             "success": false,
