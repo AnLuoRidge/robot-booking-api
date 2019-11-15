@@ -1,0 +1,10 @@
+{
+    "development": {
+        "PORT": 2333,
+        "GOOGLE_API_CREDENTIALS": "/src/config/credentials.json"
+    },
+    "production": {
+        "PORT": 80,
+        "GOOGLE_API_CREDENTIALS": ".../credentials.json"
+    }
+}

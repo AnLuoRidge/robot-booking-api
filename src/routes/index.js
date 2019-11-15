@@ -1,4 +1,4 @@
-import logger from '../../config/winston';
+import logger from '../config/winston';
 import bookableDays from './bookable-days';
 import availableTimeSlots from "./available-time-slots";
 import booking from "./booking";

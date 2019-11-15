@@ -1,4 +1,4 @@
-import logger from '../../config/winston';
+import logger from '../config/winston';
 import { Router } from 'express';
 
 const router = Router();
