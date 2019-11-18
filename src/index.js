@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import {  } from './config/config';
 import createError from 'http-errors';
 import cors from 'cors';
 import express from 'express';
@@ -7,10 +8,6 @@ import logger from './config/winston';
 
 import routes from './routes';
 
-// Test
-import {  } from "./google-calendar";
-const { development: config } = require('./config/keys.json');
-global.__config = config;
 
 const app = express();
 app.use(cors());
@@ -23,8 +20,8 @@ app.use('/days', routes.bookableDays);
 app.use('/timeslots', routes.availableTimeSlots);
 app.use('/book', routes.booking);
 
-app.listen(config.PORT, () =>
-  logger.info(`App listening on port ${config.PORT}!`),
+app.listen(global.gConfig.PORT, () =>
+  logger.info(`App listening on port ${global.gConfig.PORT}!`),
 );
 
 // catch 404 and forward to error handler

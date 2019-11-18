@@ -2,12 +2,10 @@
 import appRoot from 'app-root-path';
 const {google} = require('googleapis');
 import logger from '../config/winston';
-const { development: config } = require('../config/keys.json');
 
-const key = require(appRoot + config.GOOGLE_API_CREDENTIALS);
+const key = require(appRoot + global.gConfig.GOOGLE_API_CREDENTIALS);
 const scopes = 'https://www.googleapis.com/auth/calendar'
 const jwt = new google.auth.JWT(key.client_email, null, key.private_key, scopes)
-logger.debug(key)
 
 // get the jwt
 // TODO: store the jwt
