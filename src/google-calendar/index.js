@@ -3,6 +3,9 @@
 const {google} = require('googleapis');
 import logger from '../config/winston';
 
+
+
+
 const errorMsg = {
   dayNotAvailable: {
       "success": false,
@@ -28,13 +31,13 @@ logger.info("Google API Successfully connected!");
 let calendar = google.calendar({version: 'v3', auth: jwt});
 
 
-const xxy = () => {
+const getAvailableDays = () => {
   const month = parseInt('11');
   const year = parseInt('2019');
   const daysInMonth = new Date(year, month, 0).getDate();
 
-  logger.debug(`start: 2019-${month}-01T9:00:00.000Z`);
-  logger.debug(`end: 2019-${month}-${daysInMonth}T18:00:00.000Z`);
+  logger.debug(`start: ${year}-${month}-01T9:00:00.000Z`);
+  logger.debug(`end: ${year}-${month}-${daysInMonth}T18:00:00.000Z`);
 
 calendar.events.list({
     timeMin: `2019-${month}-01T9:00:00.000Z`,//(new Date()).toISOString(),
@@ -77,12 +80,32 @@ calendar.events.list({
 });
 }
 
-xxy();
+const allTimeSlotsAt = (year, month, day) => {
+  const allTimeSlots = [];
+  var startTime = new Date(`${year}-${month}-${day}T09:00:00Z`);
 
-const xxx = () => {
+  for (var i = 0; i < 12; i ++) {
+    const startTimeString = startTime.toISOString();
+    startTime.setMinutes(startTime.getMinutes() + 40);
+    const endTimeString = startTime.toISOString();
+    const timeSlot = {
+      "startTime": startTimeString,
+      "endTime": endTimeString
+    }
+    allTimeSlots.push(timeSlot);
+    startTime.setMinutes(startTime.getMinutes() + 5);
+  }
+  return allTimeSlots;
+}
+
+const getTimeSlots = () => {
+  const month = parseInt('11');
+  const year = parseInt('2019');
+  const day = parseInt('20');
+
   calendar.events.list({
-    timeMin: '2019-11-21T9:00:00.000Z',//(new Date()).toISOString(),
-    timeMax: '2019-11-21T18:00:00.000Z',
+    timeMin: `${year}-${month}-${day}T9:00:00.000Z`,//(new Date()).toISOString(),
+    timeMax: `${year}-${month}-${day}T18:00:00.000Z`,
     maxResults: 12,
     singleEvents: true,
     orderBy: 'startTime',
@@ -94,16 +117,37 @@ const xxx = () => {
       logger.info(errorMsg.dayNotAvailable)
       return errorMsg.dayNotAvailable; 
     } else {
+
       logger.info('Events:')
-      events.map((event, i) => {
+      var appointments = events.map((event, i) => {
         const start = event.start.dateTime || event.start.date;
+        const end = event.end.dateTime || event.end.date;
+        
         logger.info(`${start} - ${event.summary}`);
         logger.info(new Date(start).getDate());
+
+        var timeSlot = {
+            "startTime": new Date(start).toISOString(),
+            "endTime": new Date(end).toISOString()
+          }
+        return JSON.stringify(timeSlot);
       });
+
+      const allTimeSlots = allTimeSlotsAt(year, month, day);
+
+      var availableTimeSlots = allTimeSlots.filter(timeSlot => 
+        !appointments.includes(JSON.stringify(timeSlot))
+      )
+
+        availableTimeSlots = {
+          "success": true,
+          "timeSlots": availableTimeSlots
+        }
+        logger.info(JSON.stringify(availableTimeSlots));
     }
   });
 }
-
+getTimeSlots();
 // listCalendars();
 // listEvents();
 
@@ -147,5 +191,5 @@ function listEvents() {
 }
 
 export default {
-  xxy,
-}
+  getTimeSlots
+};
