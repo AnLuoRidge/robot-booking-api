@@ -1,10 +1,12 @@
 {
     "development": {
         "PORT": 2333,
-        "GOOGLE_API_CREDENTIALS": "/src/config/credentials.json"
+        "GOOGLE_API_CREDENTIALS": "/src/config/credentials.json",
+        "GOOGLE_CALENDAR_ID": "s7u2v3q6pk4f5gsbnudfupbgtc@group.calendar.google.com"
     },
     "production": {
         "PORT": 80,
-        "GOOGLE_API_CREDENTIALS": ".../credentials.json"
+        "GOOGLE_API_CREDENTIALS": ".../credentials.json",
+        "GOOGLE_CALENDAR_ID": "primary"
     }
 }
