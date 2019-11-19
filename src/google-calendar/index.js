@@ -10,7 +10,11 @@ const errorMsg = {
   dayNotAvailable: {
       "success": false,
       "error": "This day is not available."
-    }
+    },
+    eventCreated: {
+      "success": false,
+      "error": "This day is not available."
+    },
 }
 
 const key = require(global.gConfig.APP_ROOT + global.gConfig.GOOGLE_API_CREDENTIALS);
@@ -147,7 +151,62 @@ const getTimeSlots = () => {
     }
   });
 }
-getTimeSlots();
+
+
+/**
+ * @returns 
+ * {
+ *   "success": true,
+ * "startTime": "2019-09-04T10:30:00.000Z",
+ *   "endTime": "2019-09-04T11:10:00.000Z"
+ * }
+ */
+const createEvent = (year, month, day, hour, minute) => {
+  const startTime = new Date(`${year}-${month}-${day}T${hour}:${minute}:00.000Z`);
+  const startTimeString = startTime.toISOString();
+  startTime.setMinutes(startTime.getMinutes() + 40);
+  const endTimeString = startTime.toISOString();
+
+  var event = {
+    'summary': Date.now(),
+    'start': {
+      'dateTime': startTimeString,
+      'timeZone': 'Etc/UTC',
+    },
+    'end': {
+      'dateTime': endTimeString,
+      'timeZone': 'Etc/UTC',
+    },
+  };
+  
+  calendar.events.insert({
+    auth: jwt,
+    calendarId: global.gConfig.GOOGLE_CALENDAR_ID,
+    resource: event,
+  }, function(err, event) {
+    if (err) {
+      logger.error('There was an error contacting the Calendar service: ' + err);
+      return errorMsg.eventCreated;
+    }
+    logger.info(`Event ${event.data.summary} created. Link: ${event.data.htmlLink}`);
+
+    return {
+      "success": true,
+    "startTime": startTimeString,
+      "endTime": endTimeString
+  }
+  });
+}
+
+const month = parseInt('11');
+const year = parseInt('2019');
+const day = parseInt('20');
+const hour = parseInt('10');
+const minute = parseInt('30');
+// test case: 10:30 -11:10, 20 Nov 2019
+
+createEvent(year, month, day, hour, minute);
+
 // listCalendars();
 // listEvents();
 
