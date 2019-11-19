@@ -1,0 +1,13 @@
+{
+    "dayNotAvailable": {
+        "success": false,
+        "error": "This day is not available."
+      },
+      "xxx": {
+        "success": false,
+        "error": "This day is not available."
+      },
+      "toFill": {
+          "success": false
+      }
+}

@@ -1,8 +1,16 @@
 import logger from '../config/winston';
 import { Router } from 'express';
+import eventsInMonth from '../google-calendar/eventsInMonth';
 import { mockBookableDaysDB } from '../mock-data';
 
 const router = Router();
+
+const errorMsg = {
+    invalidMonth: {
+        "success": false,
+        "error": "Invalid month"
+      }
+}
 
 logger.debug('Loading bookable days route');
 
@@ -41,38 +49,14 @@ router.get('/', (req, res) => {
 // TODO: batch of creating test events
 // and remove for another test
 const getBookableDays = (year, month) => {
-    logger.debug(`GET Year: ${year} Month: ${month}\n`);
 
     if (month <= 0 || month > 12) {
         // TODO: month in [1, 2, 3]
         // TODO: params missing
-        return {
-        "success": false,
-        "error": "Invalid month"
-      };
-    }
-    // Search
-    // const db = express.json(mockBookableDaysDB);
-
-    const errorMsg = {
-        invalidMonth: {
-            "success": false,
-            "error": "Invalid month"
-          }
-    }
-
-    if(mockBookableDaysDB.hasOwnProperty(year)) {
-        
-        if (mockBookableDaysDB[year].hasOwnProperty(month)) {
-            const bookableDays = mockBookableDaysDB[year][month];
-            return bookableDays;
-        } else {
-            return errorMsg.invalidMonth;
-        }
-    } else {
-        logger.info(`Invalid year: ${year}`);
         return errorMsg.invalidMonth;
     }
+
+    return eventsInMonth(year, month);
 }
 
 export default router;
