@@ -1,24 +1,21 @@
 import logger from '../config/winston';
-import { Router } from 'express';
+import {
+    Router
+} from 'express';
 import eventsInMonth from '../google-calendar/eventsInMonth';
-import { mockBookableDaysDB } from '../mock-data';
+import errorMsg from '../config/errorMessages.json';
 
 const router = Router();
 
-const errorMsg = {
-    invalidMonth: {
-        "success": false,
-        "error": "Invalid month"
-      }
-}
 
 logger.debug('Loading bookable days route');
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     logger.debug('Executing bookable days route');
     // TODO: Validator: Month X 00 etc
-    const bookableDays = getBookableDays(req.query.year, req.query.month);
-    return res.send(bookableDays);
+    const bookableDays = await getBookableDays(req.query.year, req.query.month);
+    logger.info(`bookable days response: ${JSON.stringify(bookableDays)}`);
+    res.send(bookableDays);
 });
 
 
@@ -48,7 +45,7 @@ router.get('/', (req, res) => {
 
 // TODO: batch of creating test events
 // and remove for another test
-const getBookableDays = (year, month) => {
+const getBookableDays = async (year, month) => {
 
     if (month <= 0 || month > 12) {
         // TODO: month in [1, 2, 3]
@@ -56,7 +53,45 @@ const getBookableDays = (year, month) => {
         return errorMsg.invalidMonth;
     }
 
-    return eventsInMonth(year, month);
+    const res = await eventsInMonth(year, month);
+
+    if (res.success) {
+        const events = res.events;
+        // Count how many event in each day
+        const daysInMonth = (new Date(year, month, 0)).getDate();
+        const daysCount = Array.apply(null, Array(daysInMonth)).map(() => 0); // eg: { "1": 5, "2" : 4 }
+        events.forEach(event => {
+            const start = event.start.dateTime || event.start.date;
+            const startDate = new Date(start).getUTCDate() - 1;
+            // daysCount[startDate] = daysCount[startDate] || 0;
+            daysCount[startDate]++; // an event at this day
+        });
+        // Check event count due to each day only has 12 available time slots.
+        const days = daysCount.map((element, index) => {
+            return {
+                "day": index + 1,
+                "hasTimeSlots": element < 12
+            }
+        });
+
+        const response = {
+            "success": true,
+            "days": days
+        }
+
+        logger.debug('Events:')
+        events.map((event, i) => {
+            const start = event.start.dateTime || event.start.date;
+            logger.debug(`${start} - ${event.summary}`);
+        });
+        
+        return response;
+    } else {
+        const response = errorMsg.toFill;
+        response.error = res.error;
+        logger.error(response);
+        return response;
+    }
 }
 
 export default router;

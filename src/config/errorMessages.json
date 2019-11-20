@@ -1,0 +1,17 @@
+{
+    "dayNotAvailable": {
+        "success": false,
+        "error": "This day is not available."
+      },
+      "xxx": {
+        "success": false,
+        "error": "This day is not available."
+      },
+      "invalidMonth": {
+        "success": false,
+        "error": "Invalid month"
+      },
+      "toFill": {
+          "success": false
+      }
+}

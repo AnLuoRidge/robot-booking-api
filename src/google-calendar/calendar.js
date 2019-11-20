@@ -19,7 +19,7 @@ class Calendar {
                 
                 let calendar = google.calendar({version: 'v3', auth: jwt});
 
-            this.calendar = calendar;
+                this.calendar = calendar;
             Calendar.instance = this
         }
         return Calendar.instance;
