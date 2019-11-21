@@ -17,10 +17,9 @@ const eventsInDay = async (year, month, day) => {
         singleEvents: true,
         orderBy: 'startTime',
        calendarId: global.gConfig.GOOGLE_CALENDAR_ID
-    }
-    const result = await getEvents(calendar, options);
-    return result;
-  }
+    };
+    return await getEvents(calendar, options);
+  };
 
 export default eventsInDay;
 // module.exports(eventsInDay);

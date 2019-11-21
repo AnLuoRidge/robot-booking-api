@@ -11,16 +11,13 @@ class Calendar {
             jwt.authorize(function (err) {
                 if (err) {
                 logger.error(err);
-                return;
                 } else {
                 logger.info("Google API Successfully connected!");
                 }
                 });
-                
-                let calendar = google.calendar({version: 'v3', auth: jwt});
 
-                this.calendar = calendar;
-            Calendar.instance = this
+                this.calendar = google.calendar({version: 'v3', auth: jwt});
+            Calendar.instance = this;
         }
         return Calendar.instance;
     }

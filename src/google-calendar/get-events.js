@@ -21,6 +21,6 @@ const getEvents = async (calendar, options) => {
         errorMessage.error = err;
         return errorMessage;
     })
-}
+};
 
 export default getEvents;

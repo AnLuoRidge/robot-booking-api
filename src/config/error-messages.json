@@ -3,9 +3,9 @@
         "success": false,
         "error": "This day is not available."
       },
-      "xxx": {
+      "appointmentEarlierThanNow": {
         "success": false,
-        "error": "This day is not available."
+        "error": "No new appointment for past."
       },
       "invalidMonth": {
         "success": false,

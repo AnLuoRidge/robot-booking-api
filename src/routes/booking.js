@@ -1,21 +1,31 @@
+import insertEventByDate from '../google-calendar/insert-event';
 import logger from '../config/winston';
 import { Router } from 'express';
+import errMsg from '../config/error-messages';
+
 
 const router = Router();
-
-logger.debug('Loading booking route');
-
 // /book?year=yyyy&month=MM&day=dd&hour=hh&minute=mm
-router.post('/', (req, res) => {
-    logger.debug('Executing the booking route');
-    logger.debug(`Year: ${req.query.year} Month: ${req.query.month} Day: ${req.query.day} Hour: ${req.query.hour} Minute: ${req.query.minute}`);
+router.post('/', async (req, res) => {
+    const year = req.query.year;
+    const month = req.query.month;
+    const day = req.query.day;
+    let hour = req.query.hour;
+    const minute = req.query.minute;
 
-    const mockSuccess = {
-        "success": true,
-      "startTime": "2019-09-04T10:30:00.000Z",
-        "endTime": "2019-09-04T11:10:00.000Z"
-    };
-    return res.send(mockSuccess);
+    const date = new Date(year, month, day, hour, minute);
+    logger.debug(date);
+    // TODO: Validator
+    if (date < Date.now()) {
+        res.send(errMsg.appointmentEarlierThanNow);
+        return;
+    }
+    if (hour.length < 2) {
+        hour = '0' + hour;
+    }
+
+    const result = await insertEventByDate(year, month, day, hour, minute);
+    res.send(result);
 });
 
 export default router;

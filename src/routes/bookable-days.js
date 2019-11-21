@@ -77,9 +77,9 @@ const getBookableDays = async (year, month) => {
         const response = {
             "success": true,
             "days": days
-        }
+        };
 
-        logger.debug('Events:')
+        logger.debug('Events:');
         events.map((event, i) => {
             const start = event.start.dateTime || event.start.date;
             logger.debug(`${start} - ${event.summary}`);

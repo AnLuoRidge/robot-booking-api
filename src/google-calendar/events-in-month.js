@@ -21,6 +21,6 @@ const eventsInMonth = async (year, month) => {
       const result = await getEvents(calendar, options);
       logger.debug(`eventsInMonth.js: ${JSON.stringify(result)} ...`.substr(0, 200));
       return result;
-}
+};
 
 export default eventsInMonth;

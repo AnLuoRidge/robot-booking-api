@@ -14,4 +14,4 @@ global.gConfig = environmentConfig;
 global.gConfig.APP_ROOT = appRoot;
 
 // log global.gConfig
-logger.info(`Configuration Loaded in global.gConfig: ${JSON.stringify(global.gConfig, undefined, global.gConfig.json_indentation)}`);
+logger.info(`Configuration Loaded in global.gConfig: ${JSON.stringify(global.gConfig, undefined, global.gConfig.JSON_INDENTATION)}`);

@@ -45,7 +45,7 @@ const getAvailableTimeSlots = async (year, month, day) => {
       // Get difference set by 'all time slots - appointments'
       var availableTimeSlots = allTimeSlots.filter(timeSlot => 
         !appointments.includes(JSON.stringify(timeSlot))
-      )
+      );
 
         availableTimeSlots = {
           "success": true,
@@ -55,7 +55,7 @@ const getAvailableTimeSlots = async (year, month, day) => {
         return availableTimeSlots;
     }
   }
-}
+};
 
 const allTimeSlotsAt = (year, month, day) => {
   const allTimeSlots = [];
