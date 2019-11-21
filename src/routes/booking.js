@@ -12,9 +12,6 @@ router.post('/', async (req, res) => {
     let hour = req.query.hour;
     let minute = req.query.minute;
 
-    if (day.length < 2) {
-        day = '0' + day;
-    }
     if (hour.length < 2) {
         hour = '0' + hour;
     }

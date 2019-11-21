@@ -4,6 +4,8 @@ import {
 } from 'express';
 import eventsInMonth from '../google-calendar/events-in-month';
 import errorMsg from '../config/error-messages.json';
+import integersValidator from "../Validator/integers-validator";
+import errMsg from "../config/error-messages";
 
 const router = Router();
 
@@ -33,10 +35,12 @@ router.get('/', async (req, res) => {
 // TODO: batch of creating test events
 // and remove for another test
 const getBookableDays = async (year, month) => {
-
+    const isInt = integersValidator([year, month]);
+    if (!isInt) {
+        logger.error(errMsg.invalidParams.message);
+        return errMsg.invalidParams;
+    }
     if (month <= 0 || month > 12) {
-        // TODO: month in [1, 2, 3]
-        // TODO: params missing
         return errorMsg.invalidMonth;
     }
 

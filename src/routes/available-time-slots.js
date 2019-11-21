@@ -3,6 +3,8 @@ import logger from '../config/winston';
 const { Router } = require('express');
 import eventsInDay from '../google-calendar/events-in-day';
 import allTimeSlotsAt from '../config/all-time-slots';
+import integersValidator from "../Validator/integers-validator";
+import errMsg from "../config/error-messages";
 
 const router = Router();
 logger.debug('Loading available time slots route');
@@ -15,6 +17,11 @@ router.get('/', async (req, res) => {
 });
 
 const getAvailableTimeSlots = async (year, month, day) => {
+  const isInt = integersValidator([year, month, day]);
+  if (!isInt) {
+    logger.error(errMsg.invalidParams.message);
+    return errMsg.invalidParams;
+  }
   const res = await eventsInDay(year, month, day);
 
   if (res.success) {

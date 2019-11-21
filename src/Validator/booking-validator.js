@@ -3,9 +3,16 @@ import logger from '../config/winston';
 import allTimeSlotsAt from '../config/all-time-slots';
 import Calendar from "../google-calendar/calendar";
 import getEvents from "../google-calendar/get-events";
+import integersValidator from "./integers-validator";
 
 
 const bookingValidator = async (year, month, day, hour, minute) => {
+  // Integer checking
+  const isInt = integersValidator([year, month, day, hour, minute]);
+  if (!isInt) {
+    logger.error(errMsg.invalidParams.message);
+    return errMsg.invalidParams;
+  }
   // Month: 1 - 12
   if (month < 1 || month > 12) {
     logger.error(month, errMsg.invalidMonth);
