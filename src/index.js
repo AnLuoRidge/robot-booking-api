@@ -13,9 +13,9 @@ const app = express();
 app.use(cors());
 app.use(morgan('combined', { stream: logger.stream }));
 
-app.get('/', (_, res) => {
+app.get('/', (req, res) => {
     return res.send('Welcome to Digital Angels\' Robot Booking System!');
-})
+});
 app.use('/days', routes.bookableDays);
 app.use('/timeslots', routes.availableTimeSlots);
 app.use('/book', routes.booking);

@@ -1,23 +1,23 @@
 {
   "dayNotAvailable": {
     "success": false,
-    "error": "This day is not available."
+    "message": "This day is not available."
   },
   "appointmentEarlierThanNow": {
     "success": false,
-    "error": "No new appointment for past."
+    "message": "No new appointment for past."
   },
   "invalidMonth": {
     "success": false,
-    "error": "Invalid month."
+    "message": "Invalid month."
   },
   "invalidHour": {
     "success": false,
-    "error": "Invalid hour."
+    "message": "Invalid hour."
   },
   "invalidTimeSlot": {
     "success": false,
-    "error": "Invalid time slot."
+    "message": "Invalid time slot."
   },
   "toFill": {
     "success": false

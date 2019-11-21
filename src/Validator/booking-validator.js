@@ -31,7 +31,7 @@ const bookingValidator = (year, month, day, hour, minute) => {
   };
   const allTimeSlots = allTimeSlotsAt(year, month, day).map(ts => ts.hash);
   if (!allTimeSlots.includes(bookingTimeSlot.hash)) {
-    logger.error(errMsg.invalidTimeSlot.error, bookingTimeSlot);
+    logger.error(errMsg.invalidTimeSlot.message, bookingTimeSlot);
     return errMsg.invalidTimeSlot;
   }
   return {

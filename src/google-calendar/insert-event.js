@@ -47,7 +47,7 @@ const insertEventByDate = async (year, month, day, hour, minute) => {
     .catch(err => {
       logger.error('There was an error contacting the Calendar service: ' + err);
       const errorMessage = errMsg.toFill;
-      errorMessage.error = err;
+      errorMessage.message = err;
       return errorMessage;
     });
 };

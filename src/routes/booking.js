@@ -28,7 +28,7 @@ router.post('/', async (req, res) => {
         const result = await insertEventByDate(year, month, day, hour, minute);
         res.send(result);
     } else {
-        res.send(validationResult.error);
+        res.send(validationResult.message);
     }
 });
 

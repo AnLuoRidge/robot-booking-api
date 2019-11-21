@@ -18,7 +18,7 @@ const getEvents = async (calendar, options) => {
     .catch((err) => {
         logger.error('The API returned an error: ' + err);
         const errorMessage = errMsg.toFill;
-        errorMessage.error = err;
+        errorMessage.message = err;
         return errorMessage;
     })
 };
