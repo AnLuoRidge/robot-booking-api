@@ -2,8 +2,8 @@ import logger from '../config/winston';
 import {
     Router
 } from 'express';
-import eventsInMonth from '../google-calendar/eventsInMonth';
-import errorMsg from '../config/errorMessages.json';
+import eventsInMonth from '../google-calendar/events-in-month';
+import errorMsg from '../config/error-messages.json';
 
 const router = Router();
 

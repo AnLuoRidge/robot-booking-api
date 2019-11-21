@@ -1,5 +1,5 @@
-import eventList from "./eventList";
-import errMsg from "./errorMessages.json";
+import eventList from "./event-list";
+import errMsg from "../config/error-messages.json";
 import logger from "../config/winston";
 
 // A helper of eventList()

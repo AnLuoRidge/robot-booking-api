@@ -1,7 +1,7 @@
 // const logger = require('../config/winston');
 import logger from '../config/winston';
 const { Router } = require('express');
-import eventsInDay from '../google-calendar/eventsInDay';
+import eventsInDay from '../google-calendar/events-in-day';
 
 
 const router = Router();

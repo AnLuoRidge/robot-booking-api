@@ -1,8 +1,7 @@
 'use strict'
 
-import Calendar from './calendar';
 import logger from '../config/winston';
-import eventsInMonth from "./eventsInMonth";
+
 
 
 
@@ -17,6 +16,26 @@ const errorMsg = {
     },
 }
 
+
+const key = require(global.gConfig.APP_ROOT + global.gConfig.GOOGLE_API_CREDENTIALS);
+const scopes = 'https://www.googleapis.com/auth/calendar'
+const jwt = new google.auth.JWT(key.client_email, null, key.private_key, scopes)
+
+// get the jwt
+// TODO: store the jwt
+jwt.authorize(function (err, tokens) {
+if (err) {
+logger.error(err);
+return;
+} else {
+logger.info("Google API Successfully connected!");
+}
+});
+
+let calendar = google.calendar({version: 'v3', auth: jwt});
+
+
+
 const getAvailableDays = () => {
   const month = parseInt('11');
   const year = parseInt('2019');
@@ -24,7 +43,7 @@ const getAvailableDays = () => {
 
   logger.debug(`start: ${year}-${month}-01T9:00:00.000Z`);
   logger.debug(`end: ${year}-${month}-${daysInMonth}T18:00:00.000Z`);
-let calendar = (new Calendar()).calendar;
+
 calendar.events.list({
     timeMin: `2019-${month}-01T9:00:00.000Z`,//(new Date()).toISOString(),
     timeMax: `2019-${month}-${daysInMonth}T18:00:00.000Z`,
@@ -66,8 +85,6 @@ calendar.events.list({
 });
 }
 
-
-
 const allTimeSlotsAt = (year, month, day) => {
   const allTimeSlots = [];
   var startTime = new Date(`${year}-${month}-${day}T09:00:00Z`);
@@ -85,6 +102,7 @@ const allTimeSlotsAt = (year, month, day) => {
   }
   return allTimeSlots;
 }
+
 
 const getTimeSlots = () => {
   const month = parseInt('11');
@@ -232,3 +250,5 @@ function listEvents() {
     }
   });
 }
+
+module.exports(getAvailableDays);

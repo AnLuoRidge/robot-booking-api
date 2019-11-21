@@ -1,11 +1,11 @@
 import Calendar from './calendar';
-import getEvents from './getEvents';
+import getEvents from './get-events';
 
 /*
 const Calendar = require('./calendar');
 const eventList = require('./eventList');
 const logger = require('../config/winston');
-const errorMsg = require('../config/errorMessages.json');
+const errorMsg = require('../config/error-messages.json');
 */
 
 const eventsInDay = async (year, month, day) => {

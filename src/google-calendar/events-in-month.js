@@ -1,5 +1,5 @@
 import Calendar from './calendar';
-import getEvents from './getEvents';
+import getEvents from './get-events';
 import logger from "../config/winston";
 
 
