@@ -1,7 +1,6 @@
 import insertEventByDate from '../google-calendar/insert-event';
-import logger from '../config/winston';
+import bookingValidator from '../Validator/booking-validator';
 import { Router } from 'express';
-import errMsg from '../config/error-messages';
 
 
 const router = Router();
@@ -9,23 +8,28 @@ const router = Router();
 router.post('/', async (req, res) => {
     const year = req.query.year;
     const month = req.query.month;
-    const day = req.query.day;
+    let day = req.query.day;
     let hour = req.query.hour;
-    const minute = req.query.minute;
+    let minute = req.query.minute;
 
-    const date = new Date(year, month, day, hour, minute);
-    logger.debug(date);
-    // TODO: Validator
-    if (date < Date.now()) {
-        res.send(errMsg.appointmentEarlierThanNow);
-        return;
+    if (day.length < 2) {
+        day = '0' + day;
     }
     if (hour.length < 2) {
         hour = '0' + hour;
     }
+    if (minute.length < 2) {
+        minute = '0' + minute;
+    }
 
-    const result = await insertEventByDate(year, month, day, hour, minute);
-    res.send(result);
+    const validationResult = bookingValidator(year, month, day, hour, minute);
+
+    if (validationResult.success) {
+        const result = await insertEventByDate(year, month, day, hour, minute);
+        res.send(result);
+    } else {
+        res.send(validationResult.error);
+    }
 });
 
 export default router;

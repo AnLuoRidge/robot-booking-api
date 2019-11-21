@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 import logger from '../config/winston';
 
@@ -198,7 +198,7 @@ const createEvent = (year, month, day, hour, minute) => {
       "endTime": endTimeString
   }
   });
-}
+};
 
 const month = parseInt('11');
 const year = parseInt('2019');

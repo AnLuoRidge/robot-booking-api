@@ -5,6 +5,8 @@
         "GOOGLE_CALENDAR_ID": "s7u2v3q6pk4f5gsbnudfupbgtc@group.calendar.google.com",
         "GOOGLE_CALENDAR_SCOPE": "https://www.googleapis.com/auth/calendar",
         "TIME_SLOTS_WHOLE_DAY": 12,
+        "TIME_SLOT_DURATION": 40,
+        "TIME_SLOT_INTERVAL": 5,
         "TIME_ZONE": "Etc/UTC",
         "JSON_INDENTATION": 2
     },
@@ -14,6 +16,8 @@
         "GOOGLE_CALENDAR_ID": "primary",
         "GOOGLE_CALENDAR_SCOPE": "https://www.googleapis.com/auth/calendar",
         "TIME_SLOTS_WHOLE_DAY": 12,
+        "TIME_SLOT_DURATION": 40,
+        "TIME_SLOT_INTERVAL": 5,
         "TIME_ZONE": "Etc/UTC",
         "JSON_INDENTATION": 2
     }

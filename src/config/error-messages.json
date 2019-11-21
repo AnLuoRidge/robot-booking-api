@@ -1,17 +1,25 @@
 {
-    "dayNotAvailable": {
-        "success": false,
-        "error": "This day is not available."
-      },
-      "appointmentEarlierThanNow": {
-        "success": false,
-        "error": "No new appointment for past."
-      },
-      "invalidMonth": {
-        "success": false,
-        "error": "Invalid month"
-      },
-      "toFill": {
-          "success": false
-      }
+  "dayNotAvailable": {
+    "success": false,
+    "error": "This day is not available."
+  },
+  "appointmentEarlierThanNow": {
+    "success": false,
+    "error": "No new appointment for past."
+  },
+  "invalidMonth": {
+    "success": false,
+    "error": "Invalid month."
+  },
+  "invalidHour": {
+    "success": false,
+    "error": "Invalid hour."
+  },
+  "invalidTimeSlot": {
+    "success": false,
+    "error": "Invalid time slot."
+  },
+  "toFill": {
+    "success": false
+  }
 }

@@ -2,7 +2,7 @@
 import logger from '../config/winston';
 const { Router } = require('express');
 import eventsInDay from '../google-calendar/events-in-day';
-
+import allTimeSlotsAt from '../config/all-time-slots';
 
 const router = Router();
 logger.debug('Loading available time slots route');
@@ -20,10 +20,10 @@ const getAvailableTimeSlots = async (year, month, day) => {
   if (res.success) {
     const events = res.events;
     if (events.length > global.gConfig.TIME_SLOTS_WHOLE_DAY - 1) {      
-      logger.info(errorMsg.dayNotAvailable)
+      logger.info(errorMsg.dayNotAvailable);
       return errorMsg.dayNotAvailable; 
     } else {
-      logger.info('Events:')
+      logger.info('Events:');
 
       // Extract start time and end time from the event list.
       var appointments = events.map(event => {
@@ -33,10 +33,10 @@ const getAvailableTimeSlots = async (year, month, day) => {
         logger.info(`${start} - ${event.summary}`);
         logger.info(new Date(start).getDate());
 
-        var timeSlot = {
+        const timeSlot = {
             "startTime": new Date(start).toISOString(),
             "endTime": new Date(end).toISOString()
-          }
+          };
         return JSON.stringify(timeSlot);
       });
 
@@ -50,28 +50,11 @@ const getAvailableTimeSlots = async (year, month, day) => {
         availableTimeSlots = {
           "success": true,
           "timeSlots": availableTimeSlots
-        }
-        logger.info(JSON.stringify(availableTimeSlots));
+        };
+        logger.info(JSON.stringify(availableTimeSlots, null, global.gConfig.JSON_INDENTATION));
         return availableTimeSlots;
     }
   }
-};
-
-const allTimeSlotsAt = (year, month, day) => {
-  const allTimeSlots = [];
-  const startTime = new Date(`${year}-${month}-${day}T09:00:00Z`);
-  for (let i = 0; i < 12; i ++) {
-    const startTimeString = startTime.toISOString();
-    startTime.setMinutes(startTime.getMinutes() + 40);
-    const endTimeString = startTime.toISOString();
-    const timeSlot = {
-      'startTime': startTimeString,
-      'endTime': endTimeString,
-    };
-    allTimeSlots.push(timeSlot);
-    startTime.setMinutes(startTime.getMinutes() + 5);
-  }
-  return allTimeSlots;
 };
 
 export default router;
