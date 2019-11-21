@@ -2,7 +2,7 @@
     "development": {
         "PORT": 2333,
         "CONSOLE_LOG_LEVEL": "debug",
-        "GOOGLE_API_CREDENTIALS": "./src/config/credentials.json",
+        "GOOGLE_API_CREDENTIALS": "/src/config/credentials.json",
         "GOOGLE_CALENDAR_ID": "primary",
         "GOOGLE_CALENDAR_SCOPE": "https://www.googleapis.com/auth/calendar",
         "SERVICE_OPEN_TIME": "09:00:00",
@@ -16,7 +16,7 @@
     "test": {
         "PORT": 5888,
         "CONSOLE_LOG_LEVEL": "debug",
-        "GOOGLE_API_CREDENTIALS": "./src/config/credentials.json",
+        "GOOGLE_API_CREDENTIALS": "/src/config/credentials.json",
         "GOOGLE_CALENDAR_ID": "primary",
         "GOOGLE_CALENDAR_SCOPE": "https://www.googleapis.com/auth/calendar",
         "SERVICE_OPEN_TIME": "09:00:00",
@@ -30,7 +30,7 @@
     "production": {
         "PORT": 3000,
         "CONSOLE_LOG_LEVEL": "info",
-        "GOOGLE_API_CREDENTIALS": "./src/config/credentials.json",
+        "GOOGLE_API_CREDENTIALS": "/src/config/credentials.json",
         "GOOGLE_CALENDAR_ID": "primary",
         "GOOGLE_CALENDAR_SCOPE": "https://www.googleapis.com/auth/calendar",
         "SERVICE_OPEN_TIME": "09:00:00",
