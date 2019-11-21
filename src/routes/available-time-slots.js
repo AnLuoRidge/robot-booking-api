@@ -22,13 +22,20 @@ const getAvailableTimeSlots = async (year, month, day) => {
     logger.error(errMsg.invalidParams.message);
     return errMsg.invalidParams;
   }
+  if (month.length < 2) {
+    month = '0' + month;
+  }
+  if (day.length < 2) {
+    day = '0' + day;
+  }
+
   const res = await eventsInDay(year, month, day);
 
   if (res.success) {
     const events = res.events;
     if (events.length > global.gConfig.TIME_SLOTS_WHOLE_DAY - 1) {      
-      logger.info(errorMsg.dayNotAvailable);
-      return errorMsg.dayNotAvailable; 
+      logger.error(errMsg.dayNotAvailable.message);
+      return errMsg.dayNotAvailable;
     } else {
       logger.info('Events:');
 
@@ -61,6 +68,10 @@ const getAvailableTimeSlots = async (year, month, day) => {
         logger.info(JSON.stringify(availableTimeSlots, null, global.gConfig.JSON_INDENTATION));
         return availableTimeSlots;
     }
+  } else if (res.message.hash === errMsg.noEvents.hash) {
+      return allTimeSlotsAt(year, month, day);
+  } else {
+    return errMsg.unknown;
   }
 };
 

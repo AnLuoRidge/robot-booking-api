@@ -27,7 +27,7 @@ app.listen(global.gConfig.PORT, () =>
 );
 
 // TODO: catch 404 and forward to error handler
-/*
+
 app.use(function(req, res, next) {
     next(createError(404));
   });
@@ -43,9 +43,9 @@ app.use(function(req, res, next) {
   
     // render the error page
     res.status(err.status || 500);
-    res.render('error');
+    res.send('error');
   });
-*/
+
 // console.log(process.env.GOOGLE_CALENDAR_API_KEY);
 // export default app;
 module.exports = app;

@@ -41,5 +41,9 @@
   },
   "toFill": {
     "success": false
+  },
+  "unknown": {
+    "success": false,
+    "message": "Unknown error."
   }
 }
