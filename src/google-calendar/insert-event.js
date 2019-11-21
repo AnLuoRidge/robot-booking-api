@@ -1,6 +1,7 @@
 import Calendar from './calendar';
 import logger from '../config/winston';
 import errMsg from '../config/error-messages';
+const uuidv1 = require('uuid/v1');
 
 /**
  * Insert 40-min event.
@@ -19,7 +20,7 @@ const insertEventByDate = async (year, month, day, hour, minute) => {
   const endTimeString = startTime.toISOString();
 
   var event = {
-    'summary': Date.now(),
+    'summary': uuidv1(),
     'start': {
       'dateTime': startTimeString,
       'timeZone': global.gConfig.TIME_ZONE,
