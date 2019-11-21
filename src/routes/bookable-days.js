@@ -4,7 +4,7 @@ import {
 } from 'express';
 import eventsInMonth from '../google-calendar/events-in-month';
 import errorMsg from '../config/error-messages.json';
-import integersValidator from "../Validator/integers-validator";
+import integersValidator from "../validator/integers-validator";
 import errMsg from "../config/error-messages";
 
 const router = Router();

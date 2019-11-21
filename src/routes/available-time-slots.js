@@ -3,7 +3,7 @@ import logger from '../config/winston';
 const { Router } = require('express');
 import eventsInDay from '../google-calendar/events-in-day';
 import allTimeSlotsAt from '../config/all-time-slots';
-import integersValidator from "../Validator/integers-validator";
+import integersValidator from "../validator/integers-validator";
 import errMsg from "../config/error-messages";
 
 const router = Router();

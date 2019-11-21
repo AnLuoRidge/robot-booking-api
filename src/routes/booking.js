@@ -1,5 +1,5 @@
 import insertEventByDate from '../google-calendar/insert-event';
-import bookingValidator from '../Validator/booking-validator';
+import bookingValidator from '../validator/booking-validator';
 import { Router } from 'express';
 
 
