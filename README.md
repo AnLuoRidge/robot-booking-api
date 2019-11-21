@@ -18,6 +18,6 @@ In `Share with specific people`, filling the email address of the service accoun
 ### Project folder
 1. Assign the `calendar id` to `GOOGLE_CALENDAR_ID` in `/src/config/credentials.json` (By default, it's your primary calendar.).
 2. Run `yarn install`
-3. Run `yarn run`
+3. Run `yarn start`
 
 If you'd like to run the project under development mode or so on, please create a file named `.env` at the root path (i.e. outside the src folder). Add `NODE_ENV="development"` or other variables.
