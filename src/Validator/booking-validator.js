@@ -17,9 +17,16 @@ const bookingValidator = (year, month, day, hour, minute) => {
 
   const startDate = new Date(`${year}-${month}-${day}T${hour}:${minute}:00.000Z`);
   // The start date should be later than now.
-  if (startDate < Date.now()) {
+  if (startDate < new Date()) {
     logger.error(startDate, errMsg.appointmentEarlierThanNow);
     return errMsg.appointmentEarlierThanNow;
+  }
+  // Bookings can only be made at least 24 hours in advance
+  const oneDayInAdvance = new Date();
+  oneDayInAdvance.setHours(oneDayInAdvance.getHours() + 24);
+  if (startDate <= oneDayInAdvance) {
+    logger.error(startDate, errMsg.appointmentAtSameDay);
+    return errMsg.appointmentAtSameDay;
   }
   // Check against fixed time slots.
   const startTimeString = startDate.toISOString();

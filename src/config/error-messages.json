@@ -5,7 +5,11 @@
   },
   "appointmentEarlierThanNow": {
     "success": false,
-    "message": "No new appointment for past."
+    "message": "Appointments cannot be booked in the past"
+  },
+  "appointmentAtSameDay": {
+    "success": false,
+    "message": "Bookings can only be made at least 24 hours in advance."
   },
   "invalidMonth": {
     "success": false,
