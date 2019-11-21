@@ -22,7 +22,7 @@ router.post('/', async (req, res) => {
         minute = '0' + minute;
     }
 
-    const validationResult = bookingValidator(year, month, day, hour, minute);
+    const validationResult = await bookingValidator(year, month, day, hour, minute);
 
     if (validationResult.success) {
         const result = await insertEventByDate(year, month, day, hour, minute);

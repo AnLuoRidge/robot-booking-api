@@ -7,6 +7,9 @@ const getEvents = async (calendar, options) => {
     return await eventList(calendar, options)
       .then((res) => {
         const events = res.data.items;
+        if (events.length === 0) {
+            return errMsg.noEvents;
+        }
         logger.debug(`Total events: ${events.length}`);
         const response = {
             success: true,

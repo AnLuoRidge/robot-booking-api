@@ -1,9 +1,11 @@
-import errMsg from "../config/error-messages";
-import logger from "../config/winston";
-import allTimeSlotsAt from "../config/all-time-slots";
+import errMsg from '../config/error-messages';
+import logger from '../config/winston';
+import allTimeSlotsAt from '../config/all-time-slots';
+import Calendar from "../google-calendar/calendar";
+import getEvents from "../google-calendar/get-events";
 
 
-const bookingValidator = (year, month, day, hour, minute) => {
+const bookingValidator = async (year, month, day, hour, minute) => {
   // Month: 1 - 12
   if (month < 1 || month > 12) {
     logger.error(month, errMsg.invalidMonth);
@@ -32,6 +34,7 @@ const bookingValidator = (year, month, day, hour, minute) => {
   const startTimeString = startDate.toISOString();
   startDate.setMinutes(startDate.getMinutes() + global.gConfig.TIME_SLOT_DURATION);
   const endTimeString = startDate.toISOString();
+  startDate.setMinutes(startDate.getMinutes() - global.gConfig.TIME_SLOT_DURATION);
   const bookingTimeSlot = {
     "startTime": startTimeString,
     "endTime": endTimeString
@@ -41,6 +44,22 @@ const bookingValidator = (year, month, day, hour, minute) => {
     logger.error(errMsg.invalidTimeSlot.message, bookingTimeSlot);
     return errMsg.invalidTimeSlot;
   }
+  // Check duplication
+  let calendar = (new Calendar()).calendar;
+  const options = {
+    timeMin: startTimeString,
+    timeMax: endTimeString,
+    maxResults: 1,
+    singleEvents: true,
+    orderBy: 'startTime',
+    calendarId: global.gConfig.GOOGLE_CALENDAR_ID
+  };
+  const res = await getEvents(calendar, options);
+  if (res.success) {
+    logger.error(errMsg.duplicateEvent.message, bookingTimeSlot);
+    return errMsg.duplicateEvent;
+  }
+
   return {
     success: true
   }

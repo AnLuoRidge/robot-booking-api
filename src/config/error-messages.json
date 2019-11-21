@@ -23,6 +23,14 @@
     "success": false,
     "message": "Invalid time slot."
   },
+  "duplicateEvent": {
+    "success": false,
+    "message": "Duplicate event."
+  },
+  "noEvents": {
+    "success": false,
+    "message": "No events."
+  },
   "toFill": {
     "success": false
   }
