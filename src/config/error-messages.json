@@ -9,7 +9,7 @@
   },
   "appointmentAtSameDay": {
     "success": false,
-    "message": "Bookings can only be made at least 24 hours in advance."
+    "message": "Cannot book with less than 24 hours in advance."
   },
   "invalidMonth": {
     "success": false,
@@ -22,6 +22,10 @@
   "invalidTimeSlot": {
     "success": false,
     "message": "Invalid time slot."
+  },
+  "noWeekends": {
+    "success": false,
+    "message": "The time slot provided was not on a weekday."
   },
   "duplicateEvent": {
     "success": false,

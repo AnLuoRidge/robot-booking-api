@@ -23,6 +23,10 @@ const bookingValidator = async (year, month, day, hour, minute) => {
     logger.error(startDate, errMsg.appointmentEarlierThanNow);
     return errMsg.appointmentEarlierThanNow;
   }
+  if (startDate.getDay() === 0 || startDate.getDay() === 6) {
+    logger.error(errMsg.noWeekends.message);
+    return errMsg.noWeekends;
+  }
   // Bookings can only be made at least 24 hours in advance
   const oneDayInAdvance = new Date();
   oneDayInAdvance.setHours(oneDayInAdvance.getHours() + 24);
