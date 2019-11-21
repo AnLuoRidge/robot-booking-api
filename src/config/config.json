@@ -1,6 +1,7 @@
 {
     "development": {
         "PORT": 2333,
+        "CONSOLE_LOG_LEVEL": "debug",
         "GOOGLE_API_CREDENTIALS": "/src/config/credentials.json",
         "GOOGLE_CALENDAR_ID": "s7u2v3q6pk4f5gsbnudfupbgtc@group.calendar.google.com",
         "GOOGLE_CALENDAR_SCOPE": "https://www.googleapis.com/auth/calendar",
@@ -12,6 +13,7 @@
     },
     "test": {
         "PORT": 5888,
+        "CONSOLE_LOG_LEVEL": "debug",
         "GOOGLE_API_CREDENTIALS": "/src/config/credentials.json",
         "GOOGLE_CALENDAR_ID": "s7u2v3q6pk4f5gsbnudfupbgtc@group.calendar.google.com",
         "GOOGLE_CALENDAR_SCOPE": "https://www.googleapis.com/auth/calendar",
@@ -22,8 +24,9 @@
         "JSON_INDENTATION": 2
     },
     "production": {
-        "PORT": 3001,
-        "GOOGLE_API_CREDENTIALS": ".../credentials.json",
+        "PORT": 3000,
+        "CONSOLE_LOG_LEVEL": "info",
+        "GOOGLE_API_CREDENTIALS": "/src/config/credentials.json",
         "GOOGLE_CALENDAR_ID": "primary",
         "GOOGLE_CALENDAR_SCOPE": "https://www.googleapis.com/auth/calendar",
         "TIME_SLOTS_WHOLE_DAY": 12,

@@ -12,7 +12,7 @@ const options = {
       colorize: false,
     },
     console: {
-      level: 'debug',
+      level: global.gConfig.CONSOLE_LOG_LEVEL,
       handleExceptions: true,
       format: winston.format.combine(
           winston.format.colorize(),

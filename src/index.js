@@ -7,6 +7,8 @@ import morgan from 'morgan';
 import logger from './config/winston';
 
 import routes from './routes';
+// log global.gConfig
+logger.info(`Configuration Loaded in global.gConfig: ${JSON.stringify(global.gConfig, undefined, global.gConfig.JSON_INDENTATION)}`);
 
 
 const app = express();
