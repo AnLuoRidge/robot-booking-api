@@ -45,5 +45,5 @@ app.use(function(req, res, next) {
   });
 */
 // console.log(process.env.GOOGLE_CALENDAR_API_KEY);
-export default app;
-// module.exports = { app };
+// export default app;
+module.exports = app;
