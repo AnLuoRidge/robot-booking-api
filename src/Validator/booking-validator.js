@@ -24,6 +24,19 @@ const bookingValidator = async (year, month, day, hour, minute) => {
     return errMsg.invalidHour;
   }
 
+  if (month.length < 2) {
+    month = '0' + month;
+  }
+  if (day.length < 2) {
+    day = '0' + day;
+  }
+  if (hour.length < 2) {
+    hour = '0' + hour;
+  }
+  if (minute.length < 2) {
+    minute = '0' + minute;
+  }
+
   const startDate = new Date(`${year}-${month}-${day}T${hour}:${minute}:00.000Z`);
   // The start date should be later than now.
   if (startDate < new Date()) {

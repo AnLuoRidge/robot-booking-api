@@ -39,6 +39,10 @@
     "success": false,
     "message": "No events."
   },
+  "noAvailableTimeSlots": {
+    "success": false,
+    "message": "There's no available time slots."
+  },
   "toFill": {
     "success": false
   },

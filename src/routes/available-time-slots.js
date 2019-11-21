@@ -29,8 +29,15 @@ const getAvailableTimeSlots = async (year, month, day) => {
     day = '0' + day;
   }
 
-  const res = await eventsInDay(year, month, day);
+  const now = new Date();
+  const searchDate = new Date(`${year}-${month}-${day}T${global.gConfig.SERVICE_OPEN_TIME}.000Z`);
+  if (searchDate <= now) {
+    return errMsg.noAvailableTimeSlots
+  }
 
+  const res = await eventsInDay(year, month, day);
+  const availableDate = new Date();
+  availableDate.setUTCDate(availableDate.getUTCDate() + 1);
   if (res.success) {
     const events = res.events;
     if (events.length > global.gConfig.TIME_SLOTS_WHOLE_DAY - 1) {      
@@ -45,16 +52,25 @@ const getAvailableTimeSlots = async (year, month, day) => {
         const end = event.end.dateTime || event.end.date;
         
         logger.info(`${start} - ${event.summary}`);
-        logger.info(new Date(start).getDate());
+        const startDate = new Date(start);
 
         const timeSlot = {
-            "startTime": new Date(start).toISOString(),
+            "startTime": startDate.toISOString(),
             "endTime": new Date(end).toISOString()
           };
+
         return JSON.stringify(timeSlot);
       });
 
-      const allTimeSlots = allTimeSlotsAt(year, month, day);
+      let allTimeSlots = allTimeSlotsAt(year, month, day);
+      allTimeSlots = allTimeSlots.filter(ts => {
+        const date = new Date(ts.startTime);
+        return date > availableDate;
+      });
+
+      if (allTimeSlots.length === 0) {
+        return errMsg.noAvailableTimeSlots;
+      }
 
       // Get difference set by 'all time slots - appointments'
       var availableTimeSlots = allTimeSlots.filter(timeSlot => 
@@ -69,7 +85,16 @@ const getAvailableTimeSlots = async (year, month, day) => {
         return availableTimeSlots;
     }
   } else if (res.message.hash === errMsg.noEvents.hash) {
-      return allTimeSlotsAt(year, month, day);
+    const allTimeSlots = allTimeSlotsAt(year, month, day);
+    let availableTimeSlots = allTimeSlots.filter(ts => {
+      const date = new Date(ts.startTime);
+      return date > availableDate;
+    });
+    availableTimeSlots = {
+      "success": true,
+      "timeSlots": availableTimeSlots
+    };
+      return availableTimeSlots;
   } else {
     return errMsg.unknown;
   }

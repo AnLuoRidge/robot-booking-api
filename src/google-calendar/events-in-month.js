@@ -8,7 +8,7 @@ const eventsInMonth = async (year, month) => {
   const currentMonth = (new Date()).getUTCMonth();
   if (currentMonth === month) {
     startDate = new Date();
-    startDate.setHours(startDate.getHours() + 24);
+    startDate.setUTCDate(startDate.getUTCDate() + 1);
   } else {
     startDate = new Date(`${year}-${month}-01T${global.gConfig.SERVICE_OPEN_TIME}.000Z`);
   }
