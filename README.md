@@ -89,7 +89,7 @@ If not successful, return a message, a string for the error message.
     "message": "Invalid time slot"
 }
 ```
-# Error Message
+### Error Messages
 
 Error messages for this POST request are:
 
