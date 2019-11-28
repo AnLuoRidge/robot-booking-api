@@ -7,6 +7,7 @@ import morgan from 'morgan';
 import logger from './config/winston';
 
 import routes from './routes';
+
 // log global.gConfig
 logger.info(`Configuration Loaded in global.gConfig: ${JSON.stringify(global.gConfig, undefined, global.gConfig.JSON_INDENTATION)}`);
 
@@ -16,7 +17,7 @@ app.use(cors());
 app.use(morgan('combined', { stream: logger.stream }));
 
 app.get('/', (req, res) => {
-    return res.send('Welcome to Digital Angels\' Robot Booking System!');
+  res.send('Welcome to Digital Angels\' Robot Booking System!');
 });
 app.use('/days', routes.bookableDays);
 app.use('/timeslots', routes.availableTimeSlots);
